@@ -103,34 +103,17 @@
     }
 
     /* =====================================================================
-       OTIMIZAÇÕES LG webOS: Redução total de animações, blur e sombras GPU
+       OTIMIZAÇÕES LG webOS: Redução cirúrgica de animações pesadas, blur e GPU
+       sem suprimir nenhum elemento ou recurso visual do app
        ===================================================================== */
-    *, *::before, *::after {
-      animation: none !important;
-      transition: none !important;
+    html, body, * {
       scroll-behavior: auto !important;
       will-change: auto !important;
-    }
-
-    /* Remove backdrop-filter (principal causa de lag e crash em TVs LG webOS) */
-    .appbar,
-    .film-title,
-    .movie-modal-overlay,
-    .error-modal-overlay,
-    .feedback-overlay,
-    .s-overlay,
-    .blocked-overlay,
-    .fs-menu,
-    .mv-provider-chip,
-    .sf-toast,
-    .sov-pop-menu,
-    .ep-time-badge,
-    .live-feedback-container {
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
     }
 
-    /* Fundos escuros sólidos e nítidos no lugar do blur */
+    /* Fundos escuros sólidos e nítidos no lugar do backdrop-filter blur */
     .movie-modal-overlay,
     .error-modal-overlay,
     .feedback-overlay,
@@ -146,7 +129,28 @@
       background: rgba(0, 0, 0, 0.78) !important;
     }
 
-    /* Remove blur pesado de fundo no login e efeitos SVG contínuos */
+    /* Desativa animações infinitas pesadas de fundo/ícones/shimmer mantendo spinners úteis */
+    .tv-login:before,
+    .tv-login__bg:before,
+    .tv-login__bg:after,
+    .home-live-icon,
+    .home-live-icon.tv,
+    .lgstop,
+    .live-solid,
+    .sf-logo-wrap,
+    .sf-line-fill,
+    .sf-dot,
+    .s-skel,
+    .stream-skel,
+    .scv-skel,
+    .placeholder-glow .placeholder,
+    .placeholder-wave,
+    .progress-bar-animated {
+      animation: none !important;
+      transition: none !important;
+      filter: none !important;
+    }
+
     .tv-login:before {
       transform: none !important;
     }
@@ -156,25 +160,33 @@
       display: none !important;
     }
 
-    .home-live-icon,
-    .home-live-icon.tv,
-    .lgstop,
-    .live-solid {
-      filter: none !important;
-    }
-
-    /* Garante que seções que dependiam de fade-in fiquem 100% visíveis sem animação */
+    /* Desativa animações de entrada com opacity:0 garantindo 100% de visibilidade */
     .streaming-row-wrap,
+    .streaming-card,
     .status-message__container,
     .fade-in-up {
+      animation: none !important;
+      transition: none !important;
       opacity: 1 !important;
       transform: none !important;
     }
 
-    /* Imagens sem blur ou escala durante carregamento */
+    /* Reduz transições pesadas de modais, botões e navegação mantendo foco nítido */
+    .streaming-card img,
+    .appbar__back,
+    .season-tab:after,
+    .nav-link,
+    .btn,
+    .modal.fade .modal-dialog,
+    .carousel-item {
+      transition: none !important;
+    }
+
+    /* Imagens sem filter:blur ou escala durante carregamento */
     img[data-fade] {
       filter: none !important;
       transform: none !important;
+      transition: none !important;
       backface-visibility: visible !important;
     }
 
@@ -184,15 +196,12 @@
       transform: none !important;
     }
 
-    /* Remove excesso de box-shadow em cards e posters mantendo foco bem nítido */
+    /* Remove excesso de box-shadow em cards mantendo borda de foco nítida */
     .tv-card,
     .tv-demo-btn,
     .tv-btn,
     .streaming-card,
-    .error-modal-content,
-    .status-message__container,
-    .sf-toast,
-    .sov-pop-menu {
+    .status-message__container {
       box-shadow: none !important;
     }
   </style>
