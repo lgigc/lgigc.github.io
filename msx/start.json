@@ -1,6 +1,6 @@
 {
   "name": "IGC Media",
   "version": "1.0.0",
-  "parameter": "content:{PREFIX}{SERVER}/msx/content.json",
+  "parameter": "content:https://lgigc.github.io/msx/content.json",
   "welcome": "none"
 }
