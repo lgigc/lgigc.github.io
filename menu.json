@@ -1,0 +1,140 @@
+{
+  "name": "IGC Media",
+  "version": "1.0.0",
+  "headline": "IGC Media",
+  "logo": "{PREFIX}{SERVER}/assets/logo.png",
+  "background": "{PREFIX}{SERVER}/assets/background.jpg",
+  "cache": false,
+  "action": "link:{PREFIX}{SERVER}/app/",
+  "ready": {
+    "action": "link:{PREFIX}{SERVER}/app/"
+  },
+  "menu": [
+    {
+      "id": "home",
+      "icon": "tv",
+      "label": "Início",
+      "focus": true,
+      "execute": true,
+      "data": {
+        "action": "link:{PREFIX}{SERVER}/app/",
+        "ready": {
+          "action": "link:{PREFIX}{SERVER}/app/"
+        },
+        "pages": [
+          {
+            "items": [
+              {
+                "type": "default",
+                "layout": "0,0,8,6",
+                "color": "msx-black-soft",
+                "icon": "msx-red:play-arrow",
+                "title": "IGC Media",
+                "headline": "Player Oficial",
+                "text": "Abrindo o player em tela cheia...",
+                "image": "{PREFIX}{SERVER}/assets/banner.png",
+                "imageFiller": "cover",
+                "action": "link:{PREFIX}{SERVER}/app/",
+                "focus": true,
+                "execute": true
+              },
+              {
+                "type": "default",
+                "layout": "8,0,4,3",
+                "color": "msx-glass",
+                "icon": "msx-blue:refresh",
+                "title": "Recarregar",
+                "headline": "Atualizar Player",
+                "text": "Reabrir o player web",
+                "action": "link:{PREFIX}{SERVER}/app/"
+              },
+              {
+                "type": "default",
+                "layout": "8,3,4,3",
+                "color": "msx-glass",
+                "icon": "msx-white:settings",
+                "title": "Ajustes",
+                "headline": "Configurações MSX",
+                "text": "Ajustar opções do MSX",
+                "action": "settings"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "play",
+      "icon": "play-circle-filled",
+      "label": "Abrir Player",
+      "data": {
+        "pages": [
+          {
+            "items": [
+              {
+                "type": "default",
+                "layout": "2,1,8,4",
+                "color": "msx-black-soft",
+                "icon": "msx-red:play-arrow",
+                "title": "Abrindo IGC Media...",
+                "action": "link:{PREFIX}{SERVER}/app/",
+                "execute": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "help",
+      "icon": "help-outline",
+      "label": "Ajuda & Dicas",
+      "data": {
+        "pages": [
+          {
+            "items": [
+              {
+                "type": "default",
+                "layout": "0,0,6,3",
+                "color": "msx-glass",
+                "icon": "msx-white:tv",
+                "title": "Controle Remoto",
+                "headline": "Como navegar",
+                "text": "Use as setas direcionais e Enter/OK para navegar no player web. Pressione Voltar (Return) para sair."
+              },
+              {
+                "type": "default",
+                "layout": "6,0,6,3",
+                "color": "msx-glass",
+                "icon": "msx-yellow:warning",
+                "title": "Desative 'Validate Links'",
+                "headline": "Abertura direta",
+                "text": "Vá em Configurações > Validate Links e coloque OFF para não pedir confirmação ao abrir o player.",
+                "action": "settings"
+              },
+              {
+                "type": "default",
+                "layout": "0,3,6,3",
+                "color": "msx-glass",
+                "icon": "msx-blue:replay",
+                "title": "Sair do Player",
+                "headline": "Botão Voltar",
+                "text": "Ao assistir, use o botão Voltar ou Return do controle para retornar a este menu do MSX."
+              },
+              {
+                "type": "default",
+                "layout": "6,3,6,3",
+                "color": "msx-glass",
+                "icon": "msx-red:refresh",
+                "title": "Reiniciar",
+                "headline": "Recarregar Portal",
+                "action": "reload"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+

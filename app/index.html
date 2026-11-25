@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt-BR" class="android-lite lg-tv-lite">
+
+<head>
+  <script type="module" crossorigin src="./assets/polyfills-AMafWonb.js"></script>
+
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="robots" content="noindex">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+
+  <link rel="icon" type="image/svg+xml" href="./assets/logo-a3EQaSm4.ico" />
+  <meta name="viewport" content="width=1920, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>IGC Media (LG TV)</title>
+
+  <!-- Proteção de histórico e botão Return (461) para LG webOS / MSX -->
+  <script>
+    (function () {
+      window.__LG_ALLOW_EXIT__ = false;
+      window.__lgLastBackKeyTs = 0;
+      window.__lgGuardPushed = false;
+
+      function pushGuard() {
+        try {
+          if (window.history && typeof window.history.pushState === 'function') {
+            window.history.pushState({ lgGuard: true, ts: Date.now() }, '');
+            window.__lgGuardPushed = true;
+          }
+        } catch (e) {}
+      }
+
+      pushGuard();
+      window.addEventListener('load', function () {
+        if (!window.__lgGuardPushed) pushGuard();
+      });
+
+      // Se o webOS / Simulador tentar voltar no histórico do navegador ao apertar Return,
+      // bloqueamos a saída do app e enviamos o comando Return para a navegação interna do React.
+      window.addEventListener('popstate', function () {
+        if (window.__LG_ALLOW_EXIT__) return;
+        pushGuard();
+        var now = Date.now();
+        if (now - (window.__lgLastBackKeyTs || 0) > 250) {
+          window.__lgLastBackKeyTs = now;
+          try {
+            var ev = new KeyboardEvent('keydown', {
+              key: 'BrowserBack',
+              code: 'BrowserBack',
+              keyCode: 461,
+              which: 461,
+              bubbles: true,
+              cancelable: true
+            });
+            window.dispatchEvent(ev);
+          } catch (e) {
+            try {
+              var ev2 = document.createEvent('Event');
+              ev2.initEvent('keydown', true, true);
+              ev2.key = 'BrowserBack';
+              ev2.keyCode = 461;
+              ev2.which = 461;
+              window.dispatchEvent(ev2);
+            } catch (e2) {}
+          }
+        }
+      });
+
+      // Evita que erros assíncronos de mídia/fullscreen quebrem a interface na TV LG
+      window.addEventListener('unhandledrejection', function (e) {
+        if (e && e.reason && (e.reason.name === 'AbortError' || e.reason.name === 'NotAllowedError')) {
+          e.preventDefault();
+        }
+      });
+    })();
+  </script>
+
+  <script type="module" crossorigin src="./assets/index-DxbQVtdE.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/react-0DS0BYP9.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-DLruz_77.css">
+
+  <style id="lg-tv-optimizations">
+    /* Fundo preto e eliminação de rolagem */
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      overflow: hidden;
+      scroll-behavior: auto !important;
+      -webkit-user-select: none;
+      user-select: none;
+      font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    }
+
+    #root {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* =====================================================================
+       OTIMIZAÇÕES LG webOS: Redução total de animações, blur e sombras GPU
+       ===================================================================== */
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+      will-change: auto !important;
+    }
+
+    /* Remove backdrop-filter (principal causa de lag e crash em TVs LG webOS) */
+    .appbar,
+    .film-title,
+    .movie-modal-overlay,
+    .error-modal-overlay,
+    .feedback-overlay,
+    .s-overlay,
+    .blocked-overlay,
+    .fs-menu,
+    .mv-provider-chip,
+    .sf-toast,
+    .sov-pop-menu,
+    .ep-time-badge,
+    .live-feedback-container {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    /* Fundos escuros sólidos e nítidos no lugar do blur */
+    .movie-modal-overlay,
+    .error-modal-overlay,
+    .feedback-overlay,
+    .blocked-overlay {
+      background: rgba(8, 10, 16, 0.94) !important;
+    }
+
+    .appbar {
+      background: rgba(10, 12, 18, 0.95) !important;
+    }
+
+    .film-title {
+      background: rgba(0, 0, 0, 0.78) !important;
+    }
+
+    /* Remove blur pesado de fundo no login e efeitos SVG contínuos */
+    .tv-login:before {
+      transform: none !important;
+    }
+
+    .tv-login__bg:before,
+    .tv-login__bg:after {
+      display: none !important;
+    }
+
+    .home-live-icon,
+    .home-live-icon.tv,
+    .lgstop,
+    .live-solid {
+      filter: none !important;
+    }
+
+    /* Garante que seções que dependiam de fade-in fiquem 100% visíveis sem animação */
+    .streaming-row-wrap,
+    .status-message__container,
+    .fade-in-up {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    /* Imagens sem blur ou escala durante carregamento */
+    img[data-fade] {
+      filter: none !important;
+      transform: none !important;
+      backface-visibility: visible !important;
+    }
+
+    img[data-fade][data-loaded="true"] {
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+    }
+
+    /* Remove excesso de box-shadow em cards e posters mantendo foco bem nítido */
+    .tv-card,
+    .tv-demo-btn,
+    .tv-btn,
+    .streaming-card,
+    .error-modal-content,
+    .status-message__container,
+    .sf-toast,
+    .sov-pop-menu {
+      box-shadow: none !important;
+    }
+  </style>
+
+  <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();if(location.protocol!="file:"){window.__vite_is_modern_browser=true}</script>
+  <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
+</head>
+
+<body class="android-lite lg-tv-lite">
+  <div id="root"></div>
+
+  <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+  <script nomodule crossorigin id="vite-legacy-polyfill" src="./assets/polyfills-legacy-CIXnCYQa.js"></script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-0NG32boB.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+</body>
+
+</html>
